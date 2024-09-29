@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student grade</title>
+    
+</head>
+<body>
+
+    <script>
+       function getGrade(marks) {
+    if (marks > 79) {
+        return 'A';
+    } else if (marks >= 60) {
+        return 'B';
+    } else if (marks >= 49) {
+        return 'C';
+    } else if (marks >= 40) {
+        return 'D';
+    } else {
+        return 'E';
+    }
+}
+
+function main() {
+    const input = prompt("Enter student marks (0-100):");
+    const marks = parseFloat(input);
+
+    
+    if (isNaN(marks) || marks < 0 || marks > 100) {
+        alert("Please enter a valid mark between 0 and 100.");
+        return;
+    }
+
+    
+    const grade = getGrade(marks);
+
+    
+    alert(`The grade for marks ${marks} is: ${grade}`);
+}
+
+
+main();
+
+    </script>
+
+</body>
+</html>

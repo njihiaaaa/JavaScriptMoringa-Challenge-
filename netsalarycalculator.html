@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Salary Calculator</title>
+</head>
+<body>
+
+    <h2>Net Salary Calculator</h2>
+
+    <label for="basicSalary">Basic Salary: </label>
+    <input type="number" id="basicSalary" placeholder="Enter basic salary"><br><br>
+
+    <label for="benefits">Benefits: </label>
+    <input type="number" id="benefits" placeholder="Enter benefits"><br><br>
+
+    <button onclick="calculateNetSalary()">Calculate Net Salary</button>
+
+    <h3>Results:</h3>
+    <p id="grossSalary"></p>
+    <p id="payee"></p>
+    <p id="nhifDeduction"></p>
+    <p id="nssfDeduction"></p>
+    <p id="netSalary"></p>
+
+    <script>
+        function calculateNetSalary() {
+            const basicSalary = parseFloat(document.getElementById("basicSalary").value);
+            const benefits = parseFloat(document.getElementById("benefits").value);
+
+            const grossSalary = basicSalary + benefits;
+
+            // NHIF Deductions based on gross salary
+            const nhifDeduction = calculateNHIF(grossSalary);
+
+            // NSSF Deductions (standard rate of KSh 1080)
+            const nssfDeduction = 1080;
+
+            // Calculate PAYE (Tax) based on gross salary
+            const payeeTax = calculatePayee(grossSalary);
+
+            // Calculate Net Salary
+            const netSalary = grossSalary - nhifDeduction - nssfDeduction - payeeTax;
+
+            // Display the results
+            document.getElementById("grossSalary").innerHTML = `Gross Salary: KSh ${grossSalary.toFixed(2)}`;
+            document.getElementById("payee").innerHTML = `PAYE (Tax): KSh ${payeeTax.toFixed(2)}`;
+            document.getElementById("nhifDeduction").innerHTML = `NHIF Deduction: KSh ${nhifDeduction.toFixed(2)}`;
+            document.getElementById("nssfDeduction").innerHTML = `NSSF Deduction: KSh ${nssfDeduction.toFixed(2)}`;
+            document.getElementById("netSalary").innerHTML = `Net Salary: KSh ${netSalary.toFixed(2)}`;
+        }
+
+        // PAYE (Tax) calculation based on tax brackets
+        function calculatePayee(grossSalary) {
+            let payee = 0;
+
+            // Tax brackets for 2024 based on Kenyan system
+            if (grossSalary <= 24000) {
+                payee = grossSalary * 0.1;
+            } else if (grossSalary <= 32333) {
+                payee = (24000 * 0.1) + ((grossSalary - 24000) * 0.25);
+            } else {
+                payee = (24000 * 0.1) + (8333 * 0.25) + ((grossSalary - 32333) * 0.3);
+            }
+
+            // Personal relief of KSh 2,400 per month
+            const personalRelief = 2400;
+            payee = Math.max(0, payee - personalRelief);  // Ensure PAYE isn't negative
+
+            return payee;
+        }
+
+        // NHIF Deductions based on gross salary
+        function calculateNHIF(grossSalary) {
+            if (grossSalary <= 5999) return 150;
+            else if (grossSalary <= 7999) return 300;
+            else if (grossSalary <= 11999) return 400;
+            else if (grossSalary <= 14999) return 500;
+            else if (grossSalary <= 19999) return 600;
+            else if (grossSalary <= 24999) return 750;
+            else if (grossSalary <= 29999) return 850;
+            else if (grossSalary <= 34999) return 900;
+            else if (grossSalary <= 39999) return 950;
+            else if (grossSalary <= 44999) return 1000;
+            else if (grossSalary <= 49999) return 1100;
+            else if (grossSalary <= 59999) return 1200;
+            else if (grossSalary <= 69999) return 1300;
+            else if (grossSalary <= 79999) return 1400;
+            else if (grossSalary <= 89999) return 1500;
+            else if (grossSalary <= 99999) return 1600;
+            else return 1700;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Detector</title>
+</head>
+<body>
+
+    <h2>Car Speed and Demerit Point Calculator</h2>
+
+    <label for="speedInput">Enter the car speed (in km/h): </label>
+    <input type="number" id="speedInput" placeholder="Enter speed">
+    <button onclick="checkSpeed()">Check Speed</button>
+
+    <p id="result"></p>
+
+    <script>
+        function checkSpeed() {
+            const speed = document.getElementById("speedInput").value;
+            const speedLimit = 70;
+            const pointsPerSpeed = 5;
+            let resultText = '';
+
+            if (speed < speedLimit) {
+                resultText = "Ok";
+            } else {
+                const points = Math.floor((speed - speedLimit) / pointsPerSpeed);
+                if (points > 12) {
+                    resultText = "License suspended";
+                } else {
+                    resultText = `Points: ${points}`;
+                }
+            }
+
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+
+</body>
+</html>
+
