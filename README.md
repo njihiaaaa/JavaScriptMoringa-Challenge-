@@ -20,7 +20,7 @@ Git clone https://github.com/njihiaaaa/JavaScriptMoringa-Challenge-.git
 ```
 
 # Live Link
-[Git](gh-pages link)
+ https://njihiaaaa.github.io/JavaScriptMoringa-Challenge-/
 
 ## Technologies used
 HTML
